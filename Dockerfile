@@ -9,18 +9,9 @@ RUN groupadd --gid 1000 node \
 
 ENV NODE_VERSION 12.22.6
 
-RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
-  && case "${dpkgArch##*-}" in \
-    amd64) ARCH='x64';; \
-    ppc64el) ARCH='ppc64le';; \
-    s390x) ARCH='s390x';; \
-    arm64) ARCH='arm64';; \
-    armhf) ARCH='armv7l';; \
-    i386) ARCH='x86';; \
-    *) echo "unsupported architecture"; exit 1 ;; \
-  esac \
+
   # gpg keys listed at https://github.com/nodejs/node#release-keys
-  && set -ex \
+  RUN set -ex \
   && for key in \
     4ED778F539E3634C779C87C6D7062848A1AB005C \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
